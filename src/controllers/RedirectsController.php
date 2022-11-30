@@ -82,8 +82,6 @@ class RedirectsController extends Controller
             }
         }
 
-        $user = static::currentUser();
-
         // Create & populate the draft
         /** @var Redirect $redirect */
         $redirect = Craft::createObject(Redirect::class);
@@ -104,7 +102,8 @@ class RedirectsController extends Controller
         }
 
         // Make sure the user is allowed to create this redirect
-        if (!Craft::$app->getElements()->canSave($redirect, $user)) {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        if (!$currentUser->can(Plugin::PERMISSION_MANAGE_REDIRECTS)) {
             throw new ForbiddenHttpException('User not authorized to save this redirect.');
         }
 
