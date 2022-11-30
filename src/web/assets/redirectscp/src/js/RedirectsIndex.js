@@ -63,8 +63,9 @@ Craft.Redirects.RedirectsIndex = Craft.BaseElementIndex.extend({
           });
           slideout.on("submit", () => {
             this.clearSearch();
-            this.setSelectedSortAttribute("dateCreated", "desc");
-            this.selectElementAfterUpdate(data.entry.id);
+            this.setSortAttribute("dateCreated");
+            this.setSortDirection("desc");
+            this.selectElementAfterUpdate(data.redirect.id);
             this.updateElements();
           });
         }
